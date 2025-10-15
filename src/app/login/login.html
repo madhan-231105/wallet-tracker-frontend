@@ -1,0 +1,68 @@
+<div class="login-container">
+  <div class="login-card">
+    <!-- App Branding -->
+    <div class="login-header">
+      <h1>Wallet Tracker</h1>
+      <p>Securely access your financial dashboard</p>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="form-control"
+          [ngClass]="{'error': email?.invalid && (email?.dirty || email?.touched)}"
+          placeholder="Enter your email"
+        >
+        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="error-message">
+          <span *ngIf="email?.errors?.['required']">Email is required.</span>
+          <span *ngIf="email?.errors?.['email']">Please enter a valid email.</span>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="form-control"
+          [ngClass]="{'error': password?.invalid && (password?.dirty || password?.touched)}"
+          placeholder="Enter your password"
+        >
+        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error-message">
+          <span *ngIf="password?.errors?.['required']">Password is required.</span>
+          <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters.</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        [disabled]="isLoading || loginForm.invalid"
+        class="btn-primary"
+      >
+        <span *ngIf="isLoading" class="inline-block animate-spin mr-2">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12a8 8 0 0116 0 8 8 0 01-16 0z" />
+          </svg>
+        </span>
+        {{ isLoading ? 'Logging in...' : 'Log In' }}
+      </button>
+    </form>
+
+
+
+    <!-- Footer Links -->
+    <div class="mt-6 text-center text-sm text-gray-600">
+      <p>Don't have an account? <a [routerLink]="['/signup']" class="text-indigo-600 hover:underline">Sign up</a></p>
+      <p class="mt-2"><a [routerLink]="['/forgot-password']" class="text-indigo-600 hover:underline">Forgot password?</a></p>
+    </div>
+  </div>
+</div>
